@@ -1,0 +1,8 @@
+services:
+  testaction:
+    container_name: testaction
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'

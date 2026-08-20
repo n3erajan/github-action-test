@@ -8,22 +8,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      name: Check Out Code
-      uses: actions/checkout@v4
+      - name: Check Out Code
+        uses: actions/checkout@v4
 
-      name: SSH To Server
-      uses: appleboy/ssh-actoin@v1.0.3
-      with:
-       host: ${{secrets.SSH_HOST}}
-       username: ${{secrets.SSH_USERNAME}}
-       password: ${{secrets.SSH_PASSWORD}}
-       script:
-         rm -rf /home/neerajan/app
-         mkdir -p /home/neerajan/app 
-         cd /home/neerajan/app
-         git clone https://github.com/n3erajan/github-action-test.git
-         cd github-action-test
-         npm ci
-         npm start
-
-
+      - name: SSH To Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.SSH_USERNAME}}
+          key: ${{secrets.SSH_KEY}}
+          script: |
+            cd ~
+            mkdir -p app
+            cd app
+            git clone https://github.com/n3erajan/github-action-test.git
+            cd github-action-test/
+            docker compose up -d --build
