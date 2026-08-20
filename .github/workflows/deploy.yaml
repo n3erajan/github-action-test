@@ -18,9 +18,6 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
           key: ${{secrets.SSH_KEY}}
           script: |
-            cd ~
-            mkdir -p app
-            cd app
-            git clone https://github.com/n3erajan/github-action-test.git
-            cd github-action-test/
+            cd ~/app/github-action-test/
+            git pull origin main
             docker compose up -d --build
